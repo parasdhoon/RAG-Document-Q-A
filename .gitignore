@@ -1,0 +1,11 @@
+# Ignore the virtual environment directory
+venv/
+
+# Ignore the chroma directory
+chroma/
+
+# Ignore the .env file
+.env
+
+# Ignoring the temporary pdf file created
+temp.pdf
