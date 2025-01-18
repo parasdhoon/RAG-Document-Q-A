@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-groq
+langchain-community
+ipykernel
+pymupdf
+pypdf
+python-dotenv
+langchain_nvidia_ai_endpoints
+langchain_chroma
+onnxruntime

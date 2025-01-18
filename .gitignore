@@ -1,0 +1,20 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# Ignore virtual environments
+venv/
+.venv/
+
+# Ignore all files in data/ folder but not its subfolders
+data/*
+
+# Ignore sensitive files
+.env
+
+# Ignore compiled object files
+*.o
+*.a
+
+# Ignore all PDF files in raw folder
+data/raw/*.pdf
