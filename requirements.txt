@@ -9,3 +9,6 @@ python-dotenv
 langchain_nvidia_ai_endpoints
 langchain_chroma
 onnxruntime
+langchain_groq
+langchain_huggingface
+langchain_openai
