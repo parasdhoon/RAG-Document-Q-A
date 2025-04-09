@@ -5,6 +5,8 @@ __pycache__/
 # Ignore virtual environments
 venv/
 .venv/
+venv2/
+.venv2/
 
 # Ignore all files in data/ folder but not its subfolders
 data/*

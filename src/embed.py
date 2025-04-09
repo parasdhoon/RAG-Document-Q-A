@@ -36,7 +36,7 @@ def embed_documents(final_docs):
         vectorstoredb = Chroma(
             collection_name="chroma_indexes",
             embedding_function=embedding_model,
-            persist_directory=chroma_dir
+            persist_directory=chroma_dir,
         )
         
         vectorstoredb.add_documents(final_docs)
