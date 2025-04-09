@@ -1,4 +1,5 @@
-from langchain_chroma import Chroma
+# from langchain_chroma import Chroma
+from langchain.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 #from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
 import os
@@ -11,9 +12,10 @@ def create_retriever():
         #api_key = os.getenv("NVIDIA_EMBEDDINGS_API_KEY")
         
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        chroma_dir = os.path.join(base_dir, "data", "chromadb")
+        # chroma_dir = os.path.join(base_dir, "data", "chromadb")
+        faiss_dir = os.path.join(base_dir, "data", "faiss_index")
         
-        if not os.path.exists(chroma_dir):
+        if not os.path.exists(faiss_dir):
             raise Exception("Indexes not found")
         
         # embedding_model = NVIDIAEmbeddings(
@@ -22,14 +24,15 @@ def create_retriever():
         # )
         embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
         
-        vectorstoredb = Chroma(
-            collection_name="chroma_indexes",
-            embedding_function=embedding_model,
-            persist_directory=chroma_dir
-        )
-        
+        # vectorstoredb = Chroma(
+        #     collection_name="chroma_indexes",
+        #     embedding_function=embedding_model,
+        #     persist_directory=chroma_dir
+        # )
+        vectorstoredb = FAISS.load_local(faiss_dir, embedding_model)
+
         retriever = vectorstoredb.as_retriever(search_type="similarity", search_kwargs={"k": 3})
         
         return retriever
     except Exception as e:
-        print(f"Error Creating the retriever!")
+        print(f"Error Creating the retriever! {e}")

@@ -12,3 +12,4 @@ onnxruntime
 langchain_groq
 langchain_huggingface
 langchain_openai
+faiss-cpu
