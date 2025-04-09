@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["CHROMA_API_IMPL"] = "chromadb.api.local.LocalAPI"
 # os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
 #api_key = os.getenv("NVIDIA_EMBEDDINGS_API_KEY")
 
