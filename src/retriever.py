@@ -29,7 +29,11 @@ def create_retriever():
         #     embedding_function=embedding_model,
         #     persist_directory=chroma_dir
         # )
-        vectorstoredb = FAISS.load_local(faiss_dir, embedding_model)
+        vectorstoredb = FAISS.load_local(
+            folder_path=faiss_dir,
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
 
         retriever = vectorstoredb.as_retriever(search_type="similarity", search_kwargs={"k": 3})
         
