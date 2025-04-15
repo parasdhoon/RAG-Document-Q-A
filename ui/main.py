@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import glob
 import sys
+import shutil
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
@@ -12,10 +13,16 @@ from llm import create_rag_chain, generate_response
 
 def clear_dir(dir):
     files = glob.glob(os.path.join(dir, '*'))
-    
+
     for file in files:
-        os.remove(file)
-        print(f"Deleted: {file}")
+        try:
+            if os.path.isfile(file):
+                os.remove(file)
+            elif os.path.isdir(file):
+                shutil.rmtree(file)
+            print(f"Deleted: {file}")
+        except Exception as e:
+            print(f"Could not delete {file}. Reason: {e}")
 
 def main():
     if "chat_history" not in st.session_state:
@@ -29,7 +36,7 @@ def main():
     
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     raw_dir = os.path.join(base_dir, 'data', 'raw')
-    chromadb_dir = os.path.join(base_dir, 'data', 'chromadb')
+    chromadb_dir = os.path.join(base_dir, 'data', 'faiss_index')
     
     if not os.path.exists(raw_dir):
         os.makedirs(raw_dir)
@@ -45,6 +52,7 @@ def main():
     if st.button("Read Documents"):
         with st.spinner("Reading Documents📄"):
             clear_dir(raw_dir)
+            clear_dir(chromadb_dir)
             for uploaded_file in uploaded_files:
                 raw_file_path = os.path.join(raw_dir, uploaded_file.name)
                 
@@ -52,7 +60,6 @@ def main():
                     file.write(uploaded_file.getbuffer())
             
             final_docs = load_documents()
-            clear_dir(chromadb_dir)
             embed_documents(final_docs)
             
             st.session_state.retriever = create_retriever()

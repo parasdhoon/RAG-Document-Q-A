@@ -14,6 +14,7 @@ os.environ["CHROMA_API_IMPL"] = "chromadb.api.local.LocalAPI"
 
 def embed_documents(final_docs):
     if not final_docs:
+        print("No docs found")
         return
     
     try:

@@ -13,7 +13,7 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
 def create_rag_chain(retriever):
     llm = ChatGroq(
-        model="Llama-3.3-70b-Specdec",
+        model="deepseek-r1-distill-llama-70b",
         temperature=0.7,
         max_tokens=None,
         max_retries=2,
